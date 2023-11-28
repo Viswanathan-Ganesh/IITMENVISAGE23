@@ -166,15 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c78c18677aba542b1220d4da6a9ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 0, y: 0, z: 0}
-  rb: {fileID: 0}
-  jumpForce: {x: 0, y: 0}
-  doubleJumpForce: {x: 0, y: 0}
+  speed: {x: 250, y: 0, z: 0}
+  rb: {fileID: 4692756273580190709}
+  jumpForce: {x: 0, y: 350}
+  doubleJumpForce: {x: 0, y: 320}
   doubleJumpCapable: 1
-  doubleJumpRefillTime: 0
+  doubleJumpRefillTime: 3
   dashCapable: 0
-  dashRefillTime: 0
-  dashForce: {x: 0, y: 0}
+  dashRefillTime: 3
+  dashForce: {x: 0, y: 200}
   facingRight: 0
 --- !u!1 &4871978969261658451
 GameObject:
