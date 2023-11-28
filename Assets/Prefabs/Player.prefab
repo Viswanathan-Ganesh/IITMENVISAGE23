@@ -163,18 +163,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 588321462795291484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ab37a6024e4c341a8fd266bb7a66c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 53c78c18677aba542b1220d4da6a9ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 200, y: 0, z: 0}
-  rb: {fileID: 4692756273580190709}
-  jumpForce: {x: 0, y: 400}
-  doubleJumpForce: {x: 0, y: 300}
-  doubleJumpCapable: 0
-  doubleJumpRefillTime: 3
+  speed: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  jumpForce: {x: 0, y: 0}
+  doubleJumpForce: {x: 0, y: 0}
+  doubleJumpCapable: 1
+  doubleJumpRefillTime: 0
   dashCapable: 0
-  dashRefillTime: 3
-  dashForce: {x: 250, y: 0}
+  dashRefillTime: 0
+  dashForce: {x: 0, y: 0}
   facingRight: 0
 --- !u!1 &4871978969261658451
 GameObject:
@@ -312,7 +312,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f8b637bed37ec8449577ff0fa1410fc, type: 2}
+  - {fileID: 2100000, guid: 67f264e4680169f4696a3197acca0f65, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
