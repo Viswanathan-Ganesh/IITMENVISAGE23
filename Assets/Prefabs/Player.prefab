@@ -167,16 +167,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c78c18677aba542b1220d4da6a9ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 300, y: 0, z: 0}
   rb: {fileID: 4692756273580190709}
   jumpForce: {x: 0, y: 400}
-  doubleJumpForce: {x: 0, y: 200}
-  doubleJumpCapable: 1
-  doubleJumpRefillTime: 3
-  dashCapable: 0
-  dashRefillTime: 3
+  doubleJumpForce: {x: 0, y: 250}
   dashForce: {x: 200, y: 0}
+  speed: {x: 300, y: 0, z: 0}
+  doubleJumpCapable: 1
+  dashCapable: 0
   facingRight: 0
+  doubleJumpRefillTime: 3
+  dashRefillTime: 3
 --- !u!114 &9123292498596816824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,11 +189,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41737c423d3199343a2ff9e42e0065ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitChecker: {fileID: 3365646086025821098, guid: 6d3af684d3ace85468fb9f298db8417d, type: 3}
-  range: 5
+  critRange: 1
+  normalRange: 2
+  normalDamage: 10
+  critDamage: 20
   dir: {x: 1, y: 0}
-  offset: {x: 2, y: 0, z: 0}
-  knockback: {x: 250, y: 0}
+  offset: {x: 1.5, y: 0, z: 0}
+  critBack: {x: 300, y: 0}
+  knockBack: {x: 250, y: 0}
+  canAttack: 1
+  attackCooldown: 3
 --- !u!1 &4871978969261658451
 GameObject:
   m_ObjectHideFlags: 0

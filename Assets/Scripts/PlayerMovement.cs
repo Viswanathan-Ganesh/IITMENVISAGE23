@@ -8,21 +8,25 @@ using static UnityEditor.PlayerSettings;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Vector3 speed;
-    private bool isGrounded;
     public Rigidbody2D rb;
+
     public Vector2 jumpForce;
     public Vector2 doubleJumpForce;
-    public bool doubleJumpCapable = true; 
+    public Vector2 dashForce;
+
+    public Vector3 speed;
+
+    public bool isGrounded;
+    public bool doubleJumpCapable = true;
+    public bool dashCapable;
+    public bool facingRight;
+
     public float doubleJumpRefillTime;
     private float DJTimer;
     private float dashTimer;
-    public bool dashCapable;
     public float dashRefillTime;
-    public Vector2 dashForce;
-
-    public bool facingRight;
-
+    
+    
     void FixedUpdate()
     {
         // Getting Position 
