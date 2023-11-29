@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9123292498596816824}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +190,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitChecker: {fileID: 3365646086025821098, guid: 6d3af684d3ace85468fb9f298db8417d, type: 3}
-  offset: {x: 0.75, y: 0, z: 0}
+  range: 5
+  dir: {x: 1, y: 0}
+  offset: {x: 2, y: 0, z: 0}
+  knockback: {x: 250, y: 0}
 --- !u!1 &4871978969261658451
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +290,7 @@ GameObject:
   - component: {fileID: 9144163905172228761}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

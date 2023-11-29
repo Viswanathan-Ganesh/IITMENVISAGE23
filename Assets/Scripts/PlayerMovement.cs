@@ -23,36 +23,48 @@ public class PlayerMovement : MonoBehaviour
 
     public bool facingRight;
 
-
     void FixedUpdate()
     {
-
+        // Getting Position 
         Vector3 Pos = transform.position;
+
+        // Moving Forward
         if (Input.GetKey(KeyCode.D))
         {
+            // For getting direction
             facingRight = true;
+            // Smoothly interpolating between two points by a small change t
             transform.position = Vector2.Lerp(transform.position, Pos += speed * Time.deltaTime, Time.deltaTime);
         }
 
+
+        // Moving Backward
         if (Input.GetKey(KeyCode.A))
         {
+            // For getting direction
             facingRight = false;
+            // Smoothly interpolating between two points by a small change t
             transform.position = Vector2.Lerp(transform.position, Pos -= speed * Time.deltaTime, Time.deltaTime);
         }
 
+        // Jump
+        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W)) && isGrounded) // Checking if the player is grounded or not
+        {
+            rb.AddForce(jumpForce * Time.deltaTime, ForceMode2D.Impulse); // Applying an impulse
+            isGrounded = false; // Setting it false so that user cant jump infinitely
+        }
 
-        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W)) && isGrounded)
+        // Double Jump
+        if (Input.GetKey(KeyCode.LeftControl) && !isGrounded && doubleJumpCapable) // Checks if DJ capable and if the player is already mid-air
         {
-            rb.AddForce(jumpForce * Time.deltaTime, ForceMode2D.Impulse);
-            isGrounded = false;
+            rb.AddForce(doubleJumpForce * Time.deltaTime, ForceMode2D.Impulse); // applies impules
+            DJTimer = doubleJumpRefillTime; // giving charging time
+            doubleJumpCapable = false; // setting it to false so no inf use
         }
-        if (Input.GetKey(KeyCode.LeftControl) && !isGrounded && doubleJumpCapable)
-        {
-            rb.AddForce(doubleJumpForce * Time.deltaTime, ForceMode2D.Impulse);
-            DJTimer = doubleJumpRefillTime;
-            doubleJumpCapable = false;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) && dashCapable)
+
+
+        // Dash
+        if (Input.GetKey(KeyCode.LeftShift) && dashCapable) // checking dashcapability
         {
             if (facingRight)
             {
@@ -62,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(-dashForce * Time.deltaTime, ForceMode2D.Impulse);
             }
-            dashTimer = dashRefillTime;
+            dashTimer = dashRefillTime; // Setting refill time
             dashCapable = false;
         }
 
@@ -88,6 +100,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    // Checks if the player is grounded
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Ground")
