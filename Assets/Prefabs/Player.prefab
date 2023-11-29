@@ -172,6 +172,7 @@ MonoBehaviour:
   doubleJumpForce: {x: 0, y: 250}
   dashForce: {x: 200, y: 0}
   speed: {x: 300, y: 0, z: 0}
+  isGrounded: 0
   doubleJumpCapable: 1
   dashCapable: 0
   facingRight: 0
@@ -195,8 +196,8 @@ MonoBehaviour:
   critDamage: 20
   dir: {x: 1, y: 0}
   offset: {x: 1.5, y: 0, z: 0}
-  critBack: {x: 300, y: 0}
-  knockBack: {x: 250, y: 0}
+  critBack: {x: 250, y: 0}
+  knockBack: {x: 200, y: 0}
   canAttack: 1
   attackCooldown: 3
 --- !u!1 &4871978969261658451
