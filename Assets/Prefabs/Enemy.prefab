@@ -186,6 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e179d2e0efa074389969cd03a80d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 1202850299876730623}
+  enemyVisionDistance: 10
+  enemySpeed: 3
+  playerTr: {fileID: 3037778177482129625, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+  enemyAttackRange: 1.5
 --- !u!114 &750078920145363816
 MonoBehaviour:
   m_ObjectHideFlags: 0

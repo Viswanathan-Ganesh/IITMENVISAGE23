@@ -92,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
             doubleJumpCapable = true;
         }
 
-
         // Dash Timer
         if (dashCapable == false)
         {
@@ -103,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
             dashCapable = true;
         }
     }
-
 
     // Checks if the player is grounded
     void OnTriggerEnter2D(Collider2D collision)
