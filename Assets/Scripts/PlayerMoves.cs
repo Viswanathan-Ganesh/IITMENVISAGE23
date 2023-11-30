@@ -21,6 +21,14 @@ public class PlayerMoves : MonoBehaviour
     public float attackCooldown;
     private float attackTimer;
 
+    public float slashDamage;
+    public bool canSlash = true;
+    public float slashRange;
+    public Transform slashPoint;
+    public float slashCoolDown;
+    private float slashTimer;
+    public LayerMask enemyLayer;
+
     void Update()
     {
         // Normal Attack
@@ -53,6 +61,14 @@ public class PlayerMoves : MonoBehaviour
         }
 
         // Slash Attack
+        if (Input.GetKeyDown(KeyCode.S) && canSlash)
+        {
+            Slash();
+            canSlash = false;
+            slashTimer = slashCoolDown;
+        }
+            
+
 
         // attack cooldown
         if (attackTimer >= 0f && canAttack == false)
@@ -63,6 +79,34 @@ public class PlayerMoves : MonoBehaviour
         {
             canAttack = true;
         }
-        
+
+        // slash cooldown
+        if (slashTimer >= 0f && canSlash == false)
+        {
+            slashTimer -= Time.deltaTime;
+        }
+        else
+        {
+            canSlash = true;
+        }
+
+    }
+
+    void Slash()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(slashPoint.position, slashRange, enemyLayer);
+
+        foreach (Collider2D enemy in hitEnemies)
+            enemy.GetComponent<EnemyHealth>().SetHealth(slashDamage);
+
+
+    }
+
+    void OnDrawGizmos()
+    {
+        if (slashPoint == null)
+            return;
+
+        Gizmos.DrawWireSphere(slashPoint.position, slashRange);
     }
 }
