@@ -190,7 +190,13 @@ MonoBehaviour:
   enemyVisionDistance: 10
   enemySpeed: 3
   playerTr: {fileID: 3037778177482129625, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
-  enemyAttackRange: 1.5
+  dodgeForce: 250
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyAttackRange: 3
+  isDodging: 0
+  dodgeCooldown: 2
 --- !u!114 &750078920145363816
 MonoBehaviour:
   m_ObjectHideFlags: 0

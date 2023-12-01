@@ -192,11 +192,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   critRange: 0.75
-  normalRange: 1.5
+  normalRange: 2
   normalDamage: 10
   critDamage: 15
   dir: {x: 1, y: 0}
+  facingDir: {x: 0, y: 0}
   offset: {x: 1.5, y: 0, z: 0}
+  offset1: {x: 0, y: 0, z: 0}
   critBack: {x: 0, y: 0}
   knockBack: {x: 140, y: 0}
   canAttack: 1

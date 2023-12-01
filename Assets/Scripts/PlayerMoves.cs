@@ -11,9 +11,11 @@ public class PlayerMoves : MonoBehaviour
     public float normalRange;
     public float normalDamage;
     public float critDamage;
-    
-    public Vector2 dir;
+
+    public Vector2 dir = new Vector2(1f, 0f);
+    public Vector2 facingDir;
     public Vector3 offset;
+    public Vector3 offset1;
     public Vector2 critBack;
     public Vector2 knockBack;
     
@@ -25,18 +27,33 @@ public class PlayerMoves : MonoBehaviour
     public bool canSlash = true;
     public float slashRange;
     public Transform slashPoint;
+    public Vector2 slashPointPos;
     public float slashCoolDown;
     private float slashTimer;
     public LayerMask enemyLayer;
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.D))
+        {
+            facingDir = new Vector2(1f, 0f);
+            offset1 = offset;
+            slashPointPos = transform.position + new Vector3(2f, 0f, 0f);
+
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            facingDir = new Vector2(-1f, 0f);
+            offset1 = -offset;
+            slashPointPos = transform.position + new Vector3(-2f, 0f, 0f);
+        }
+
         // Normal Attack
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
-            Vector2 rayStart = transform.position + offset; // creating start point for the raycast
-            RaycastHit2D hit = Physics2D.Raycast(rayStart, dir); // making a raycast 
-            Debug.DrawRay(rayStart, dir);
+            Vector2 rayStart = transform.position + offset1; // creating start point for the raycast
+            RaycastHit2D hit = Physics2D.Raycast(rayStart, facingDir); // making a raycast 
+            Debug.DrawRay(rayStart, facingDir);
             
             if (hit.collider != null) // checking if the collider hits nothing
             {
@@ -67,8 +84,6 @@ public class PlayerMoves : MonoBehaviour
             canSlash = false;
             slashTimer = slashCoolDown;
         }
-            
-
 
         // attack cooldown
         if (attackTimer >= 0f && canAttack == false)
@@ -89,16 +104,14 @@ public class PlayerMoves : MonoBehaviour
         {
             canSlash = true;
         }
-
     }
 
     void Slash()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(slashPoint.position, slashRange, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(slashPointPos, slashRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)
             enemy.GetComponent<EnemyHealth>().SetHealth(slashDamage);
-
 
     }
 
@@ -107,6 +120,6 @@ public class PlayerMoves : MonoBehaviour
         if (slashPoint == null)
             return;
 
-        Gizmos.DrawWireSphere(slashPoint.position, slashRange);
+        Gizmos.DrawWireSphere(slashPointPos, slashRange);
     }
 }
