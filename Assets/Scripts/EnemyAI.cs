@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -16,29 +17,44 @@ public class EnemyAI : MonoBehaviour
 
     public float dodgeCooldown;
     private float dodgeTimer;
+    public int level;
 
 
     void FixedUpdate()
     {
-        Vector2 positionVec = playerTr.position - transform.position;
+        Vector2 positionVec = transform.position - playerTr.position;
         float distance = positionVec.magnitude;
+        Vector2 VelocityDirection = -(positionVec) / positionVec.magnitude;
+        Vector2 vel = new Vector2(enemySpeed * VelocityDirection.x, 0f);
 
-        if (distance <= enemyVisionDistance && distance >= enemyAttackRange && isDodging == false)
+        if (distance <= enemyVisionDistance && distance > enemyAttackRange + 0.2f && isDodging == false)
         {
-            Vector2 VelocityDirection = (positionVec) / positionVec.magnitude;
-            rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, 0f);
+            rb.velocity = vel;
         }
-        else if (isDodging == false)
+        else if (distance < enemyAttackRange - 0.2f && distance >= 0f && isDodging == false)
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = -vel;
         }
+        else if(isDodging == false)
+        {
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+        }
+
 
         if (distance <= playerTr.GetComponent<PlayerMoves>().normalRange)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Dodge(playerTr.GetComponent<PlayerMoves>().facingDir);
-            }
+            Vector2 facingDirection = playerTr.GetComponent<PlayerMoves>().facingDir;
+            float relX = positionVec.x / Mathf.Abs(positionVec.x);
+            bool grounded = playerTr.GetComponent<PlayerMovement>().isGrounded;
+
+            
+        if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && relX == facingDirection.x)
+        {
+            Dodge(facingDirection, level);
+            playerTr.GetComponent<PlayerMoves>().isCriting = false;
+        }
+           
+
         }
 
         // Timer
@@ -53,11 +69,72 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void Dodge(Vector2 facingDirection)
+    void Dodge(Vector2 facingDirection, int level) 
     {
-        rb.AddForce(facingDirection * dodgeForce * Time.deltaTime, ForceMode2D.Impulse);
-        isDodging = true;
-        dodgeTimer = dodgeCooldown;
-        Debug.Log("HI");
+        if (Randomized(level))
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(facingDirection * dodgeForce * Time.deltaTime, ForceMode2D.Impulse);
+            isDodging = true;
+            dodgeTimer = dodgeCooldown;
+            Debug.Log("HI");
+        }
+    }
+
+    bool Randomized(int Level)
+    {
+        if (level == 1)
+        {
+            // 50% possiblity
+            int rand = Random.Range(1, 2);
+
+            if (rand == 1)
+            {
+                isDodging = true;
+                return true;
+            }
+            else
+            {
+                isDodging = false;
+                return false;
+            }
+        }
+        else if (level == 2)
+        {
+            // 50 % possiblity
+            int rand = Random.Range(1, 4);
+
+            if (rand == 1 || rand == 2 || rand == 3)
+            {
+                isDodging = true;
+                return true;
+            }
+            else
+            {
+                isDodging = false;
+                return false;
+            }
+        }
+        else if (level == 3)
+        {
+            // 90 % possiblity
+            int rand = Random.Range(1, 10);
+
+            if (rand == 1 || rand == 2 || rand == 3 || rand == 4 || rand == 5 || rand == 6 || rand == 7 || rand == 8 || rand == 9)
+            {
+                isDodging = true;
+                return true;
+            }
+            else
+            {
+                isDodging = false;
+                return false;
+            }
+        }
+        else
+        {
+            isDodging = false;
+            return false;
+        }
     }
 }

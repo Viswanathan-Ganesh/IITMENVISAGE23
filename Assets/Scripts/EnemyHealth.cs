@@ -22,7 +22,10 @@ public class EnemyHealth : MonoBehaviour
     }
     public void SetHealth(float damage) // damages
     {
-        health -= damage;
-        Debug.Log(health);
+        if (transform.GetComponent<EnemyAI>().isDodging == false)
+        {
+            health -= damage;
+            Debug.Log(health);
+        }
     }
 }

@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 7165138159684609817}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.68, y: -0.6176, z: 0}
-  m_LocalScale: {x: 1.864, y: 2.788211, z: 1}
+  m_LocalPosition: {x: 3.68, y: 0.1075, z: 0}
+  m_LocalScale: {x: 1.864, y: 2.4502196, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -160,7 +160,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &8310248446671024567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,13 +190,13 @@ MonoBehaviour:
   enemyVisionDistance: 10
   enemySpeed: 3
   playerTr: {fileID: 3037778177482129625, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
-  dodgeForce: 250
+  dodgeForce: 1000
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
   enemyAttackRange: 3
   isDodging: 0
-  dodgeCooldown: 2
+  dodgeCooldown: 0.15
 --- !u!114 &750078920145363816
 MonoBehaviour:
   m_ObjectHideFlags: 0

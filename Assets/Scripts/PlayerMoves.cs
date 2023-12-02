@@ -23,6 +23,7 @@ public class PlayerMoves : MonoBehaviour
     public float attackCooldown;
     private float attackTimer;
 
+    public bool isCriting;
     public float slashDamage;
     public bool canSlash = true;
     public float slashRange;
@@ -62,6 +63,7 @@ public class PlayerMoves : MonoBehaviour
                     float dis = Mathf.Abs(hit.point.x - rayStart.x); // finding distance at which it hit an object
                     if (dis <= critRange && gameObject.GetComponent<PlayerMovement>().isGrounded == false)
                     {
+                        isCriting = true;
                         hit.collider.GetComponent<EnemyHealth>().SetHealth(critDamage); // gets the componenet EnemyHealth from the collider it hit and calls the function SetHealth
                         hit.collider.attachedRigidbody.AddForce(critBack * Time.deltaTime, ForceMode2D.Impulse); // adding critBack
                     }
@@ -104,6 +106,7 @@ public class PlayerMoves : MonoBehaviour
         {
             canSlash = true;
         }
+        
     }
 
     void Slash()
