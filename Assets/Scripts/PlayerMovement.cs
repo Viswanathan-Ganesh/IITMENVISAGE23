@@ -77,11 +77,13 @@ public class PlayerMovement : MonoBehaviour
         } //refill
 
         // Double Jump
+        /*
         if (Input.GetKey(KeyCode.LeftControl) && !isGrounded() && doubleJumpCapable) // Checks if DJ capable and if the player is already mid-air
         {
             rb.AddForce(doubleJumpForce * Time.deltaTime, ForceMode2D.Impulse); // applies impules
 
         }
+        */
 
 
         // Dash
