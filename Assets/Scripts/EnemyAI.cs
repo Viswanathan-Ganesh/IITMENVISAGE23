@@ -29,11 +29,11 @@ public class EnemyAI : MonoBehaviour
 
         if (distance <= enemyVisionDistance && distance > enemyAttackRange + 0.2f && isDodging == false)
         {
-            rb.velocity = vel;
+            rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
         }
         else if (distance < enemyAttackRange - 0.2f && distance >= 0f && isDodging == false)
         {
-            rb.velocity = -vel;
+            rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
         }
         else if(isDodging == false)
         {
@@ -47,16 +47,13 @@ public class EnemyAI : MonoBehaviour
             float relX = positionVec.x / Mathf.Abs(positionVec.x);
             bool grounded = playerTr.GetComponent<PlayerMovement>().isGrounded;
 
-            
-        if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && relX == facingDirection.x)
-        {
-            Dodge(facingDirection, level);
-            playerTr.GetComponent<PlayerMoves>().isCriting = false;
-        }
-           
 
+            if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && relX == facingDirection.x)
+            {
+                Dodge(facingDirection, level);
+                playerTr.GetComponent<PlayerMoves>().isCriting = false;
+            }
         }
-
         // Timer
 
         if (isDodging == true)
