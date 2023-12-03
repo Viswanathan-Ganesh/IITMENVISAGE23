@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4692756273580190709}
   - component: {fileID: 4432141352329116284}
   - component: {fileID: 9123292498596816824}
+  - component: {fileID: 368868523502924689}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -171,8 +172,8 @@ MonoBehaviour:
   rb: {fileID: 4692756273580190709}
   jumpForce: {x: 0, y: 400}
   doubleJumpForce: {x: 0, y: 350}
-  dashForce: {x: 200, y: 0}
-  speed: {x: 1500, y: 0, z: 0}
+  dashForce: {x: 5000, y: 0}
+  speed: {x: 2000, y: 0, z: 0}
   doubleJumpCapable: 1
   dashCapable: 0
   facingRight: 0
@@ -198,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   critRange: 0.75
-  normalRange: 2
+  normalRange: 5
   normalDamage: 10
   critDamage: 15
   dir: {x: 1, y: 0}
@@ -219,6 +220,20 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &368868523502924689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588321462795291484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053587798c4147045b2ac67f2655e200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
 --- !u!1 &2708193009152097667
 GameObject:
   m_ObjectHideFlags: 0

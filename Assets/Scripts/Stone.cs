@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Stone : MonoBehaviour
 {
-    public int asteroidDamage;
+    public int stoneDamage;
     public float destroyDelay;
     private float timer;
     private void Update()
     {
-        if (timer >0)
+        if (timer > 0) 
         {
             timer -= Time.deltaTime;
         }
@@ -24,10 +24,10 @@ public class Asteroid : MonoBehaviour
             timer = destroyDelay;
             if (collision.tag == "Player")
             {
-                collision.GetComponent<PlayerHealth>().Damage(asteroidDamage);
-               
+                collision.GetComponent<PlayerHealth>().Damage(stoneDamage);
+
             }
-            
+
         }
     }
 }

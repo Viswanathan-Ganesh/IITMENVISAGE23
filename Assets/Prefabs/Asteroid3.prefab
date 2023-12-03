@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bdf2533eda71249b6f463e5b0c6e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroidDamage: 6
+  destroyDelay: 1
 --- !u!58 &8375715030744439939
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +157,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

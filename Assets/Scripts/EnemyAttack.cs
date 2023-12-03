@@ -17,28 +17,33 @@ public class EnemyAttack : MonoBehaviour
     public Transform slashPoint;
     public float slashRange;
     public LayerMask playerLayer;
-    public float slashDamage;
+    public int slashDamage;
     public Vector3 slashPointOffset;
-
-
+    public float facingDirection;
+    
+    public float stoneShootingSpeed;
     public int noOfAsteroids;
     public int level;
+    public Transform muzzle;
 
     // Update is called once per frame
     void Update()
     {
-        float facingDirection = (playerTr.position.x - transform.position.x)/Mathf.Abs((playerTr.position.x - transform.position.x));
+        facingDirection = (playerTr.position.x - transform.position.x)/Mathf.Abs((playerTr.position.x - transform.position.x));
 
-        if (facingDirection == -1)
+        
+        if (facingDirection < 0)
         {
             slashPoint.position = transform.position - slashPointOffset;
+            muzzle.position = transform.position - slashPointOffset;
         }
-        else
+        else if(facingDirection > 0) 
         {
             slashPoint.position = transform.position + slashPointOffset;
+            muzzle.position = transform.position + slashPointOffset;
         }
 
-
+        
         // timer
         timer -= Time.deltaTime;
 
@@ -82,32 +87,34 @@ public class EnemyAttack : MonoBehaviour
     void AsteroidRain()
     {
         int randNum = Random.Range(1, 4);
+        Vector3 randomOffset = new Vector3(Random.Range(5f, 7f), Random.Range(3.5f, 5f), 0f);
         if (randNum == 1)
         {
-            Instantiate(asteroid1, playerTr.position + offset, Quaternion.identity);
+            Instantiate(asteroid1, playerTr.position + offset + randomOffset, Quaternion.identity);
         }
         else if (randNum == 2)
         {
-            Instantiate(asteroid2, playerTr.position + offset, Quaternion.identity);
+            Instantiate(asteroid2, playerTr.position + offset + randomOffset, Quaternion.identity);
         }
         else if (randNum == 3)
         {
-            Instantiate(asteroid3, playerTr.position + offset, Quaternion.identity);
+            Instantiate(asteroid3, playerTr.position + offset + randomOffset, Quaternion.identity);
         }
     }
 
     void ThrowingStone()
     {
-        Instantiate(stone, transform.position, Quaternion.identity);
+        GameObject Stone = Instantiate(stone, muzzle.position, Quaternion.identity);
+        Stone.GetComponent<Rigidbody2D>().velocity = new Vector2(stoneShootingSpeed * facingDirection, Stone.GetComponent<Rigidbody2D>().velocity.y);
     }
 
     void WoodenLog()
     {
         
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(slashPoint.position, slashRange, playerLayer);
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(slashPoint.position, slashRange, playerLayer);
 
-        foreach (Collider2D enemy in hitEnemies)
-            enemy.GetComponent<EnemyHealth>().SetHealth(slashDamage);
+        foreach (Collider2D player in hitPlayers)
+            player.GetComponent<PlayerHealth>().Damage(slashDamage);
         
     }
     void OnDrawGizmos()

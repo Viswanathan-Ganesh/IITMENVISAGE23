@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4541808535444361156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7432032533711695594}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7432032533711695594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541808535444361156}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.66, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5280322371899315128}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5168332462246726744
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,7 +65,9 @@ Transform:
   m_LocalPosition: {x: 1.4073175, y: 3.890824, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4162755677873404975}
+  - {fileID: 7432032533711695594}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &576001865023993551
@@ -174,14 +207,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -116672981183314799}
-  enemyVisionDistance: 10
+  enemyVisionDistance: 20
   enemySpeed: 3
   playerTr: {fileID: 3037778177482129625, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
   dodgeForce: 1000
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
-  enemyAttackRange: 3
+  enemyAttackRange: 5
   isDodging: 0
   dodgeCooldown: 0.2
   level: 3
@@ -211,19 +244,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTr: {fileID: 3037778177482129625, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
-  timeBetweenShots: 2
+  timeBetweenShots: 3
   timer: 0
   asteroid1: {fileID: 3127033213913116238, guid: edd1f33d756c542409b67cad341157aa, type: 3}
   asteroid2: {fileID: 3484600541100046437, guid: a29a468aab6598a4daa11182465c250a, type: 3}
   asteroid3: {fileID: 8197506466710107147, guid: 764f888ea8c7d794486e089cb3d29c1f, type: 3}
-  stone: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  slashPoint: {fileID: 0}
-  slashRange: 0
+  stone: {fileID: 8007770170439012499, guid: 4390c52c594fc3b4eb7e554a52f1a47e, type: 3}
+  offset: {x: 0, y: 20, z: 0}
+  slashPoint: {fileID: 4162755677873404975}
+  slashRange: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
-  slashDamage: 0
-  slashPointOffset: {x: 0, y: 0, z: 0}
-  noOfAsteroids: 0
-  level: 0
+  slashDamage: 10
+  slashPointOffset: {x: 5, y: 0.2, z: 0}
+  facingDirection: 0
+  stoneShootingSpeed: 20
+  noOfAsteroids: 6
+  level: 1
+  muzzle: {fileID: 7432032533711695594}
+--- !u!1 &7876962403415674117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4162755677873404975}
+  m_Layer: 0
+  m_Name: SlashPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4162755677873404975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7876962403415674117}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5280322371899315128}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
