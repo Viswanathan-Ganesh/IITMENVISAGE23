@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour
         {
             Vector2 facingDirection = playerTr.GetComponent<PlayerMoves>().facingDir;
             float relX = positionVec.x / Mathf.Abs(positionVec.x);
-            bool grounded = playerTr.GetComponent<PlayerMovement>().isGrounded;
+            bool grounded = playerTr.GetComponent<PlayerMovement>().isLanded;
 
 
             if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && relX == facingDirection.x)

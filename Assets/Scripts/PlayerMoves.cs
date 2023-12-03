@@ -61,7 +61,7 @@ public class PlayerMoves : MonoBehaviour
                 if (hit.collider.tag == "Enemy")
                 {
                     float dis = Mathf.Abs(hit.point.x - rayStart.x); // finding distance at which it hit an object
-                    if (dis <= critRange && gameObject.GetComponent<PlayerMovement>().isGrounded == false)
+                    if (dis <= critRange && gameObject.GetComponent<PlayerMovement>().isLanded == false)
                     {
                         isCriting = true;
                         hit.collider.GetComponent<EnemyHealth>().SetHealth(critDamage); // gets the componenet EnemyHealth from the collider it hit and calls the function SetHealth

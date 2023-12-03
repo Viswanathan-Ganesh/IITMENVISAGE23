@@ -172,13 +172,19 @@ MonoBehaviour:
   jumpForce: {x: 0, y: 400}
   doubleJumpForce: {x: 0, y: 350}
   dashForce: {x: 200, y: 0}
-  speed: {x: 300, y: 0, z: 0}
-  isGrounded: 0
+  speed: {x: 1500, y: 0, z: 0}
   doubleJumpCapable: 1
   dashCapable: 0
   facingRight: 0
   doubleJumpRefillTime: 3
   dashRefillTime: 3
+  jumpSpeed: 7
+  isLanded: 0
+  playerSize: {x: 1.13, y: 0.57}
+  castDistance: 1.68
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &9123292498596816824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,10 +209,12 @@ MonoBehaviour:
   knockBack: {x: 140, y: 0}
   canAttack: 1
   attackCooldown: 1
+  isCriting: 0
   slashDamage: 20
   canSlash: 1
   slashRange: 1.75
   slashPoint: {fileID: 5020403922623659287}
+  slashPointPos: {x: 0, y: 0}
   slashCoolDown: 3
   enemyLayer:
     serializedVersion: 2
