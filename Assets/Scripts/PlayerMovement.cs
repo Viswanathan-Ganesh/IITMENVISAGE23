@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Transactions;
-using Unity.VisualScripting;
-using UnityEditor.TerrainTools;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class PlayerMovement : MonoBehaviour
 {
