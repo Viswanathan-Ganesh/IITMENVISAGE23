@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -390,6 +391,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d71d375b7c07f41b8e10c1559f1efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTr: {fileID: 2083132825}
+  timeDiff: 0.01
+  offset: {x: 0, y: 0, z: -10}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,9 +619,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8007770170439012499, guid: 4390c52c594fc3b4eb7e554a52f1a47e, type: 3}
     - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: offset.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
       propertyPath: playerTr
       value: 
       objectReference: {fileID: 2083132825}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: asteroidForce
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: timeBetweenAsteroidAttack
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: -116672981183314799, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
       propertyPath: m_Simulated
       value: 1
@@ -693,48 +721,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5168332462246726744, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7465949156768328346}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
---- !u!1 &7465949156768328339 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5168332462246726744, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
-  m_PrefabInstance: {fileID: 7465949156768328338}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7465949156768328346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465949156768328339}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef91c1210ac35a4f9c4acb2c05e5471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTr: {fileID: 2083132825}
-  timeBetweenShots: 2
-  timer: 0
-  asteroid1: {fileID: 0}
-  asteroid2: {fileID: 0}
-  asteroid3: {fileID: 0}
-  stone: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  slashPoint: {fileID: 0}
-  slashRange: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  slashDamage: 0
-  slashPointOffset: {x: 0, y: 0, z: 0}
-  facingDirection: 0
-  stoneShootingSpeed: 0
-  noOfAsteroids: 0
-  level: 0
-  muzzle: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

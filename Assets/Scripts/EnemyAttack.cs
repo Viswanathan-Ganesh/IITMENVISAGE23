@@ -17,6 +17,9 @@ public class EnemyAttack : MonoBehaviour
     public int slashDamage;
     public Vector3 slashPointOffset;
     public float facingDirection;
+    public float asteroidForce;
+    private float asteroidTimer;
+    public float timeBetweenAsteroidAttack;
     
     public float stoneShootingSpeed;
     public int noOfAsteroids;
@@ -43,10 +46,14 @@ public class EnemyAttack : MonoBehaviour
         
         // timer
         timer -= Time.deltaTime;
+        asteroidTimer -= Time.deltaTime;
 
         if (timer < 0)
         {
+
             RandomizedAttack();
+           
+            //timer = timeBetweenShots;
         }
     }
 
@@ -54,12 +61,24 @@ public class EnemyAttack : MonoBehaviour
     {
         if (level == 1)
         {
+            for (int i = 0; i < noOfAsteroids; i++)
+            {
+
+                    AsteroidRain();
+                
+            }
+            timer = timeBetweenShots;
+            /*
             int randomNum = Random.Range(1, 11);
             if (randomNum == 1)
             {
                 for (int i = 0; i < noOfAsteroids; i++)
                 {
-                    AsteroidRain();
+                    if (asteroidTimer < 0)
+                    {
+                        AsteroidRain();
+                    }
+                    asteroidTimer = timeBetweenAsteroidAttack;
                 }
                 timer = timeBetweenShots;
             }
@@ -73,8 +92,9 @@ public class EnemyAttack : MonoBehaviour
                 WoodenLog();
                 timer = timeBetweenShots;
             }
+            */
         }
-        
+
     }
 
     // level 1 boss attacks
@@ -84,19 +104,23 @@ public class EnemyAttack : MonoBehaviour
     void AsteroidRain()
     {
         int randNum = Random.Range(1, 4);
-        Vector3 randomOffset = new Vector3(Random.Range(5f, 7f), Random.Range(3.5f, 5f), 0f);
+        GameObject ast = null;
+        Vector3 randomOffset = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 50f), 0f);
         if (randNum == 1)
         {
-            Instantiate(asteroid1, playerTr.position + offset + randomOffset, Quaternion.identity);
+            ast = Instantiate(asteroid1, playerTr.position + offset + randomOffset, Quaternion.identity);
         }
         else if (randNum == 2)
         {
-            Instantiate(asteroid2, playerTr.position + offset + randomOffset, Quaternion.identity);
+            ast = Instantiate(asteroid2, playerTr.position + offset + randomOffset, Quaternion.identity);
         }
         else if (randNum == 3)
         {
-            Instantiate(asteroid3, playerTr.position + offset + randomOffset, Quaternion.identity);
+            ast = Instantiate(asteroid3, playerTr.position + offset + randomOffset, Quaternion.identity);
         }
+        Vector2 dir = new Vector2(playerTr.position.x - transform.position.x, playerTr.position.y - ast.transform.position.y);
+        dir = dir / dir.magnitude;
+        ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
     }
 
     void ThrowingStone()

@@ -21,11 +21,15 @@ public class Asteroid : MonoBehaviour
     {
         if (collision != null)
         {
-            timer = destroyDelay;
+            
             if (collision.tag == "Player")
             {
+                timer = destroyDelay;
                 collision.GetComponent<PlayerHealth>().Damage(asteroidDamage);
-               
+            }
+            else if(collision.tag == "Ground")
+            {
+                timer = destroyDelay;
             }
             
         }
