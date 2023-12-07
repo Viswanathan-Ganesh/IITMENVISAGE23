@@ -17,6 +17,13 @@ public class EnemyAI : MonoBehaviour
     private float dodgeTimer;
     public int level;
 
+    public float firstWaveHealth;
+    public float secondWaveHealth;
+    public float thirdWaveHealth;
+
+    public float secondWaveRange;
+    public float thirdWaveRange;
+
 
     void FixedUpdate()
     {
@@ -24,20 +31,51 @@ public class EnemyAI : MonoBehaviour
         float distance = positionVec.magnitude;
         Vector2 VelocityDirection = -(positionVec) / positionVec.magnitude;
         Vector2 vel = new Vector2(enemySpeed * VelocityDirection.x, 0f);
-
-        if (distance <= enemyVisionDistance && distance > enemyAttackRange + 0.2f && isDodging == false)
+        if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= firstWaveHealth)
         {
-            rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
+            if (distance <= enemyVisionDistance && distance > enemyAttackRange + 0.2f && isDodging == false)
+            {
+                rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
+            }
+            else if (distance < enemyAttackRange - 0.2f && distance >= 0f && isDodging == false)
+            {
+                rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
+            }
+            else if (isDodging == false)
+            {
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+            }
         }
-        else if (distance < enemyAttackRange - 0.2f && distance >= 0f && isDodging == false)
+        else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= secondWaveHealth)
         {
-            rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
+            if (distance <= enemyVisionDistance && distance > secondWaveRange + 0.2f && isDodging == false)
+            {
+                rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
+            }
+            else if (distance < secondWaveRange - 0.2f && distance >= 0f && isDodging == false)
+            {
+                rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
+            }
+            else if (isDodging == false)
+            {
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+            }
         }
-        else if(isDodging == false)
+        else if(gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth)
         {
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            if (distance <= enemyVisionDistance && distance > thirdWaveRange + 0.2f && isDodging == false)
+            {
+                rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
+            }
+            else if (distance < thirdWaveRange - 0.2f && distance >= 0f && isDodging == false)
+            {
+                rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
+            }
+            else if (isDodging == false)
+            {
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+            }
         }
-
 
         if (distance <= playerTr.GetComponent<PlayerMoves>().normalRange)
         {
@@ -97,9 +135,9 @@ public class EnemyAI : MonoBehaviour
         else if (level == 2)
         {
             // 50 % possiblity
-            int rand = Random.Range(1, 4);
+            int rand = Random.Range(1, 5);
 
-            if (rand == 1 || rand == 2 || rand == 3)
+            if (rand == 1)
             {
                 isDodging = true;
                 return true;
@@ -112,7 +150,7 @@ public class EnemyAI : MonoBehaviour
         }
         else if (level == 3)
         {
-            // 90 % possiblity
+            // 70 % possiblity
             int rand = Random.Range(1, 10);
 
             if (rand == 1 || rand == 2 || rand == 3 || rand == 4 || rand == 5 || rand == 6 || rand == 7 || rand == 8 || rand == 9)

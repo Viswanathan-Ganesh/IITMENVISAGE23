@@ -25,6 +25,10 @@ public class EnemyAttack : MonoBehaviour
     public float rangeFromPlayer;
     public float yRandomRange;
 
+    public float firstWaveHealth;
+    public float secondWaveHealth;
+    public float thirdWaveHealth;
+
     public float stoneShootingSpeed;
     public int noOfAsteroids;
     public int level;
@@ -54,35 +58,21 @@ public class EnemyAttack : MonoBehaviour
 
         if (timer < 0)
         {
-
             RandomizedAttack();
-           
-            //timer = timeBetweenShots;
         }
     }
 
     void RandomizedAttack()
     {
+        /*
         if (level == 1)
         {
-            for (int i = 0; i < noOfAsteroids; i++)
-            {
-
-                    AsteroidRain();
-                
-            }
-            timer = timeBetweenShots;
-            /*
-            int randomNum = Random.Range(1, 11);
+            int randomNum = Random.Range(1, 15);
             if (randomNum == 1)
             {
                 for (int i = 0; i < noOfAsteroids; i++)
                 {
-                    if (asteroidTimer < 0)
-                    {
-                        AsteroidRain();
-                    }
-                    asteroidTimer = timeBetweenAsteroidAttack;
+                     AsteroidRain();
                 }
                 timer = timeBetweenShots;
             }
@@ -96,7 +86,25 @@ public class EnemyAttack : MonoBehaviour
                 WoodenLog();
                 timer = timeBetweenShots;
             }
-            */
+        }
+        */
+        if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= firstWaveHealth)
+        {
+            WoodenLog();
+            timer = timeBetweenShots;
+        }
+        else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= secondWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= firstWaveHealth)
+        {
+            ThrowingStone();
+            timer = timeBetweenShots;
+        }
+        else if(gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= secondWaveHealth)
+        {
+            for (int i = 0; i < noOfAsteroids; i++)
+            {
+                AsteroidRain();
+            }
+            timer = timeBetweenShots;
         }
 
     }
@@ -104,14 +112,6 @@ public class EnemyAttack : MonoBehaviour
     // level 1 boss attacks
 
     //spl. attack astroid rain
-
-    /*
-     angle of fall
-     yOffset
-     range from player
-
-    Instatiate(asteroid1, playerTr.position + yOffset + new Vector3(-y*tan(angleOfFall) - Random.Range(rangeFromPlayer), 0f, 0f), Quaternion.identity)
-    */
 
     void AsteroidRain()
     {

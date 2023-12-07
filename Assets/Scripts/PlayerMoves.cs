@@ -50,8 +50,10 @@ public class PlayerMoves : MonoBehaviour
         }
 
         // Normal Attack
+        /*
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
+            
             Vector2 rayStart = transform.position + offset1; // creating start point for the raycast
             RaycastHit2D hit = Physics2D.Raycast(rayStart, facingDir); // making a raycast 
             Debug.DrawRay(rayStart, facingDir);
@@ -74,10 +76,12 @@ public class PlayerMoves : MonoBehaviour
                     }
                 }
             }
+            
 
             canAttack = false;
             attackTimer = attackCooldown;
         }
+        */
 
         // Slash Attack
         if (Input.GetKeyDown(KeyCode.S) && canSlash)

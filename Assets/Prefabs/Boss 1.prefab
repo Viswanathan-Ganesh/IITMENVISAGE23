@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7432032533711695594}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4541808535444361156}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.66, y: 0, z: 0}
+  m_LocalPosition: {x: -0.595, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3366809449834636394}
   - component: {fileID: -6473727108264836659}
   - component: {fileID: -2839713170399255501}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Boss 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4073175, y: 3.890824, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4.4874234, y: 4.4874234, z: 4.4874234}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4162755677873404975}
@@ -181,7 +181,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -193,7 +193,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3366809449834636394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -116672981183314799}
-  enemyVisionDistance: 20
+  enemyVisionDistance: 22
   enemySpeed: 3
-  playerTr: {fileID: 3037778177482129625, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+  playerTr: {fileID: 0}
   dodgeForce: 1000
   playerLayer:
     serializedVersion: 2
@@ -217,7 +217,12 @@ MonoBehaviour:
   enemyAttackRange: 5
   isDodging: 0
   dodgeCooldown: 0.2
-  level: 3
+  level: 2
+  firstWaveHealth: 130
+  secondWaveHealth: 70
+  thirdWaveHealth: 0
+  secondWaveRange: 12
+  thirdWaveRange: 20
 --- !u!114 &-6473727108264836659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,22 +248,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef91c1210ac35a4f9c4acb2c05e5471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTr: {fileID: 3037778177482129625, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+  playerTr: {fileID: 0}
   timeBetweenShots: 3
   timer: 0
   asteroid1: {fileID: 3127033213913116238, guid: edd1f33d756c542409b67cad341157aa, type: 3}
   asteroid2: {fileID: 3484600541100046437, guid: a29a468aab6598a4daa11182465c250a, type: 3}
   asteroid3: {fileID: 8197506466710107147, guid: 764f888ea8c7d794486e089cb3d29c1f, type: 3}
   stone: {fileID: 8007770170439012499, guid: 4390c52c594fc3b4eb7e554a52f1a47e, type: 3}
-  offset: {x: 0, y: 20, z: 0}
+  yOffset: {x: 0, y: 50, z: 0}
   slashPoint: {fileID: 4162755677873404975}
-  slashRange: 2
+  slashRange: 2.5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   slashDamage: 10
   slashPointOffset: {x: 5, y: 0.2, z: 0}
   facingDirection: 0
+  asteroidForce: -10000
+  timeBetweenAsteroidAttack: 0.1
+  degreesOfFall: -25
+  rangeFromPlayer: 10
+  yRandomRange: 15
+  firstWaveHealth: 130
+  secondWaveHealth: 70
+  thirdWaveHealth: 0
   stoneShootingSpeed: 20
   noOfAsteroids: 6
   level: 1
@@ -272,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4162755677873404975}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SlashPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
