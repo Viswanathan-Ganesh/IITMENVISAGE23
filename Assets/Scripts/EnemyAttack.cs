@@ -10,7 +10,7 @@ public class EnemyAttack : MonoBehaviour
     public GameObject asteroid2;
     public GameObject asteroid3;
     public GameObject stone;
-    public Vector3 offset;
+    public Vector3 yOffset;
     public Transform slashPoint;
     public float slashRange;
     public LayerMask playerLayer;
@@ -20,7 +20,11 @@ public class EnemyAttack : MonoBehaviour
     public float asteroidForce;
     private float asteroidTimer;
     public float timeBetweenAsteroidAttack;
-    
+
+    public float degreesOfFall;
+    public float rangeFromPlayer;
+    public float yRandomRange;
+
     public float stoneShootingSpeed;
     public int noOfAsteroids;
     public int level;
@@ -101,10 +105,41 @@ public class EnemyAttack : MonoBehaviour
 
     //spl. attack astroid rain
 
+    /*
+     angle of fall
+     yOffset
+     range from player
+
+    Instatiate(asteroid1, playerTr.position + yOffset + new Vector3(-y*tan(angleOfFall) - Random.Range(rangeFromPlayer), 0f, 0f), Quaternion.identity)
+    */
+
     void AsteroidRain()
     {
         int randNum = Random.Range(1, 4);
         GameObject ast = null;
+        float randomRangeFromPlayer = Random.Range(-rangeFromPlayer, rangeFromPlayer);
+        float randomYOffset = Random.Range(-yRandomRange, yRandomRange);
+
+        if (randNum == 1)
+        {
+            ast = Instantiate(asteroid1, playerTr.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+        }
+        else if (randNum == 2)
+        {
+            ast = Instantiate(asteroid2, playerTr.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+        }
+        else if (randNum == 3)
+        {
+            ast = Instantiate(asteroid3, playerTr.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall  * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+        }
+        
+        Vector2 dir = new Vector2(playerTr.position.x + randomRangeFromPlayer, yOffset.y);
+        dir = dir / dir.magnitude;
+        ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
+        
+        
+
+        /*
         Vector3 randomOffset = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 50f), 0f);
         if (randNum == 1)
         {
@@ -118,9 +153,10 @@ public class EnemyAttack : MonoBehaviour
         {
             ast = Instantiate(asteroid3, playerTr.position + offset + randomOffset, Quaternion.identity);
         }
-        Vector2 dir = new Vector2(playerTr.position.x - transform.position.x, playerTr.position.y - ast.transform.position.y);
-        dir = dir / dir.magnitude;
-        ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
+        */
+        //Vector2 dir = new Vector2(playerTr.position.x - transform.position.x, playerTr.position.y - ast.transform.position.y);
+        // dir = dir / dir.magnitude;
+        //ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
     }
 
     void ThrowingStone()

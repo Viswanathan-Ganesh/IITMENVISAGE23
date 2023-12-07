@@ -404,8 +404,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTr: {fileID: 2083132825}
-  timeDiff: 0.01
-  offset: {x: 0, y: 0, z: -10}
+  timeDiff: 0.0005
+  offset: {x: 0, y: 4, z: -10}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,8 +557,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4432141352329116284, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+      propertyPath: jumpSpeed
+      value: 9.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432141352329116284, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
       propertyPath: dashForce.x
-      value: 500
+      value: 1400
       objectReference: {fileID: 0}
     - target: {fileID: 4432141352329116284, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
       propertyPath: castDistance
@@ -573,8 +577,12 @@ PrefabInstance:
       value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 4432141352329116284, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
-      propertyPath: doubleJumpCapable
+      propertyPath: dashRefillTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432141352329116284, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+      propertyPath: doubleJumpCapable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4432141352329116284, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
       propertyPath: platformLayer.m_Bits
@@ -619,6 +627,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8007770170439012499, guid: 4390c52c594fc3b4eb7e554a52f1a47e, type: 3}
     - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: offset.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
       propertyPath: offset.y
       value: 50
       objectReference: {fileID: 0}
@@ -627,8 +639,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2083132825}
     - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: yOffset.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: yRandomRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
       propertyPath: asteroidForce
-      value: 4000
+      value: -10000
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: degreesOfFall
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
+      propertyPath: rangeFromPlayer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -2839713170399255501, guid: d2fcb72b5daaac2418decb2131f24ca1, type: 3}
       propertyPath: timeBetweenAsteroidAttack
