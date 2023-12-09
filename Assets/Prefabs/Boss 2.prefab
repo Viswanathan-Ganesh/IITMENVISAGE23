@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1750593159369678422}
   - component: {fileID: 3668127847069824352}
+  - component: {fileID: 5431405885063510273}
+  - component: {fileID: 9123034627359298675}
+  - component: {fileID: -6569177505461471060}
   m_Layer: 0
   m_Name: Boss 2
   m_TagString: Untagged
@@ -84,3 +87,90 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5431405885063510273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753606297516759984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e179d2e0efa074389969cd03a80d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  enemyVisionDistance: 0
+  enemySpeed: 0
+  playerTr: {fileID: 0}
+  dodgeForce: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyAttackRange: 0
+  isDodging: 0
+  dodgeCooldown: 0
+  level: 0
+  firstWaveHealth: 0
+  secondWaveHealth: 0
+  thirdWaveHealth: 0
+  secondWaveRange: 0
+  thirdWaveRange: 0
+--- !u!114 &9123034627359298675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753606297516759984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef91c1210ac35a4f9c4acb2c05e5471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTr: {fileID: 0}
+  timeBetweenShots: 0
+  timer: 0
+  asteroid1: {fileID: 0}
+  asteroid2: {fileID: 0}
+  asteroid3: {fileID: 0}
+  stone: {fileID: 0}
+  yOffset: {x: 0, y: 0, z: 0}
+  slashPoint: {fileID: 0}
+  slashRange: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  slashDamage: 0
+  slashPointOffset: {x: 0, y: 0, z: 0}
+  facingDirection: 0
+  asteroidForce: 0
+  timeBetweenAsteroidAttack: 0
+  asteroidIndicator: {fileID: 0}
+  degreesOfFall: 0
+  rangeFromPlayer: 0
+  yRandomRange: 0
+  firstWaveHealth: 0
+  secondWaveHealth: 0
+  thirdWaveHealth: 0
+  stoneShootingSpeed: 0
+  noOfAsteroids: 0
+  level: 0
+  muzzle: {fileID: 0}
+  ultimateSlashDamage: 0
+  ultimateSlashOffset: 0
+  ultimateSlashRange: 0
+  ultimateSlashRunSpeed: 0
+--- !u!114 &-6569177505461471060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753606297516759984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23d8b60442fe6140aa16fe543ec0432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 300

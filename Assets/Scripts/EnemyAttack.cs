@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 
 public class EnemyAttack : MonoBehaviour
@@ -21,6 +22,8 @@ public class EnemyAttack : MonoBehaviour
     private float asteroidTimer;
     public float timeBetweenAsteroidAttack;
 
+    public GameObject asteroidIndicator;
+
     public float degreesOfFall;
     public float rangeFromPlayer;
     public float yRandomRange;
@@ -33,6 +36,12 @@ public class EnemyAttack : MonoBehaviour
     public int noOfAsteroids;
     public int level;
     public Transform muzzle;
+    public int ultimateSlashDamage;
+    public float ultimateSlashOffset;
+    public float ultimateSlashRange;
+    public float ultimateSlashRunSpeed;
+
+    GameObject ai;
 
     // Update is called once per frame
     void Update()
@@ -58,8 +67,19 @@ public class EnemyAttack : MonoBehaviour
 
         if (timer < 0)
         {
+            /*
+            Vector3 dir = playerTr.position - transform.position;
+            dir = dir / dir.magnitude;
+            float dis = (playerTr.position - transform.position).magnitude;
+            if (dis <= ultimateSlashRange + ultimateSlashOffset && dis >= ultimateSlashRange - ultimateSlashRange)
+            {
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x, dir.y) * ultimateSlashRunSpeed;
+            }
+            */
+
             RandomizedAttack();
         }
+        
     }
 
     void RandomizedAttack()
@@ -100,9 +120,11 @@ public class EnemyAttack : MonoBehaviour
         }
         else if(gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= secondWaveHealth)
         {
+            ai = Instantiate(asteroidIndicator, playerTr.position, Quaternion.identity);
+
             for (int i = 0; i < noOfAsteroids; i++)
             {
-                AsteroidRain();
+                AsteroidRain(playerTr);
             }
             timer = timeBetweenShots;
         }
@@ -113,27 +135,28 @@ public class EnemyAttack : MonoBehaviour
 
     //spl. attack astroid rain
 
-    void AsteroidRain()
+    void AsteroidRain(Transform instantaneousPos)
     {
         int randNum = Random.Range(1, 4);
         GameObject ast = null;
         float randomRangeFromPlayer = Random.Range(-rangeFromPlayer, rangeFromPlayer);
         float randomYOffset = Random.Range(-yRandomRange, yRandomRange);
 
+        
         if (randNum == 1)
         {
-            ast = Instantiate(asteroid1, playerTr.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+            ast = Instantiate(asteroid1, instantaneousPos.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
         }
         else if (randNum == 2)
         {
-            ast = Instantiate(asteroid2, playerTr.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+            ast = Instantiate(asteroid2, instantaneousPos.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
         }
         else if (randNum == 3)
         {
-            ast = Instantiate(asteroid3, playerTr.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall  * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+            ast = Instantiate(asteroid3, instantaneousPos.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall  * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
         }
         
-        Vector2 dir = new Vector2(playerTr.position.x + randomRangeFromPlayer, yOffset.y);
+        Vector2 dir = new Vector2(instantaneousPos.position.x + randomRangeFromPlayer, yOffset.y);
         dir = dir / dir.magnitude;
         ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
         
@@ -180,5 +203,18 @@ public class EnemyAttack : MonoBehaviour
             return;
 
         Gizmos.DrawWireSphere(slashPoint.position, slashRange);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision == null) return;
+        else
+        {
+            if (collision.collider.tag == "Player")
+            {
+                collision.gameObject.GetComponent<PlayerHealth>().Damage(ultimateSlashDamage);
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+        }
     }
 }

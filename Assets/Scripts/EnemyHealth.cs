@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float health;
+    public int health;
 
 
     void Update()
@@ -18,7 +18,7 @@ public class EnemyHealth : MonoBehaviour
     {
         return health;
     }
-    public void SetHealth(float damage) // damages
+    public void SetHealth(int damage) // damages
     {
         if (transform.GetComponent<EnemyAI>().isDodging == false)
         {

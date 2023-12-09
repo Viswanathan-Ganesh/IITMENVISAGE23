@@ -23,10 +23,14 @@ public class PlayerMovement : MonoBehaviour
     public float jumpSpeed;
     private int maxJumps = 1;
     private int jumpsLeft;
+    public float dashSpeed;
+
+    public float dashPeriod;
+    private float dashPeriodTimer = 0f;
 
     public bool isLanded;
     public Vector2 playerSize;
-    public float castDistance;
+    public float castDistance; 
     public LayerMask platformLayer;
 
     private void Start()
@@ -85,27 +89,40 @@ public class PlayerMovement : MonoBehaviour
         {
             if (facingRight)
             {
-                rb.AddForce(dashForce * Time.deltaTime, ForceMode2D.Impulse);
+                //rb.AddForce(dashForce * Time.deltaTime, ForceMode2D.Impulse);
+                rb.velocity = new Vector2(dashSpeed, 0f);
             }
             else
             {
-                rb.AddForce(-dashForce * Time.deltaTime, ForceMode2D.Impulse);
+                rb.velocity = new Vector2(-dashSpeed, 0f);
+                //rb.AddForce(-dashForce * Time.deltaTime, ForceMode2D.Impulse);
             }
+            dashPeriodTimer = dashPeriod;
             dashTimer = dashRefillTime; // Setting refill time
             dashCapable = false;
         }
 
 
+        if (dashPeriodTimer < 0f)
+        {
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+            dashPeriodTimer = 0f;
+        }
 
-
+        if (dashPeriodTimer  > 0f)
+        {
+            dashPeriodTimer -= Time.deltaTime;
+        }
         // Dash Timer
         if (dashCapable == false)
         {
+            
             dashTimer -= Time.deltaTime;
         }
         if (dashTimer <= 0f)
         {
             dashCapable = true;
+
         }
     }
 

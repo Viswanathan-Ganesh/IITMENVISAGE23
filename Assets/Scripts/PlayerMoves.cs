@@ -24,7 +24,7 @@ public class PlayerMoves : MonoBehaviour
     private float attackTimer;
 
     public bool isCriting;
-    public float slashDamage;
+    public int slashDamage;
     public bool canSlash = true;
     public float slashRange;
     public Transform slashPoint;
@@ -33,8 +33,17 @@ public class PlayerMoves : MonoBehaviour
     private float slashTimer;
     public LayerMask enemyLayer;
 
+    public GameObject arrow;
+    public Transform bowMuzzleTr;
+    public float arrowSpeed;
+    private float rightPressTime;
+    public float maxPressTime; 
+    public float minPressTime; 
+
+
     void Update()
     {
+        
         if (Input.GetKey(KeyCode.D))
         {
             facingDir = new Vector2(1f, 0f);
@@ -47,6 +56,15 @@ public class PlayerMoves : MonoBehaviour
             facingDir = new Vector2(-1f, 0f);
             offset1 = -offset;
             slashPointPos = transform.position + new Vector3(-2f, 0f, 0f);
+            
+        }
+        if(facingDir.x > 0f)
+        {
+            bowMuzzleTr.position = transform.position + new Vector3(2f, 0f, 0f);
+        }
+        else if(facingDir.x < 0f)
+        {
+            bowMuzzleTr.position = transform.position + new Vector3(-2f, 0f, 0f);
         }
 
         // Normal Attack
@@ -111,6 +129,28 @@ public class PlayerMoves : MonoBehaviour
             canSlash = true;
         }
         
+
+        // Bow Attack
+        if (Input.GetMouseButton(1))
+        {
+            rightPressTime += Time.deltaTime;
+        }
+        else
+        { 
+            if(rightPressTime > minPressTime)
+            {
+                if (rightPressTime <= maxPressTime)
+                {
+                    BowShot(rightPressTime);
+                }
+                else
+                {
+                    BowShot(maxPressTime);
+                }
+                rightPressTime = 0f;
+            }
+        }
+
     }
 
     void Slash()
@@ -120,6 +160,22 @@ public class PlayerMoves : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
             enemy.GetComponent<EnemyHealth>().SetHealth(slashDamage);
 
+    }
+
+    void BowShot(float time)
+    {
+        GameObject iarrow = Instantiate(arrow, bowMuzzleTr.position, Quaternion.identity);
+        Rigidbody2D iarrowRb = iarrow.GetComponent<Rigidbody2D>();
+
+        if (facingDir.x > 0f)
+        {
+            iarrowRb.velocity = new Vector2(time * arrowSpeed, iarrowRb.velocity.y);
+        }
+        else if(facingDir.x < 0f) 
+        {
+            iarrowRb.velocity = new Vector2(-time * arrowSpeed, iarrowRb.velocity.y);
+        }
+        
     }
 
     void OnDrawGizmos()
