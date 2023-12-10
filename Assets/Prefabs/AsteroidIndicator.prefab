@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2780674371517058623}
   - component: {fileID: 5664273066847737171}
-  - component: {fileID: 29292872486146060}
   m_Layer: 0
   m_Name: Light 2D
   m_TagString: Untagged
@@ -83,19 +82,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &29292872486146060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5968763875091087933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879a0142c8d6cee4792709820de28aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 2
 --- !u!1 &7106976400140518314
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962539100606222742}
+  - component: {fileID: 7674944591742323259}
   m_Layer: 0
   m_Name: AsteroidIndicator
   m_TagString: Untagged
@@ -128,3 +115,16 @@ Transform:
   - {fileID: 2780674371517058623}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7674944591742323259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7106976400140518314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879a0142c8d6cee4792709820de28aff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 2

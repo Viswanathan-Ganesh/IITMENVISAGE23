@@ -124,7 +124,7 @@ public class EnemyAttack : MonoBehaviour
 
             for (int i = 0; i < noOfAsteroids; i++)
             {
-                AsteroidRain(playerTr);
+                AsteroidRain();
             }
             timer = timeBetweenShots;
         }
@@ -135,7 +135,7 @@ public class EnemyAttack : MonoBehaviour
 
     //spl. attack astroid rain
 
-    void AsteroidRain(Transform instantaneousPos)
+    void AsteroidRain()
     {
         int randNum = Random.Range(1, 4);
         GameObject ast = null;
@@ -145,20 +145,29 @@ public class EnemyAttack : MonoBehaviour
         
         if (randNum == 1)
         {
-            ast = Instantiate(asteroid1, instantaneousPos.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+            //ast = Instantiate(asteroid1, instantaneousPos.position + yOffset + new Vector3(yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+            ast = Instantiate(asteroid1, playerTr.position + yOffset + new Vector3(randomRangeFromPlayer, 0f, 0f), Quaternion.identity);
         }
         else if (randNum == 2)
         {
-            ast = Instantiate(asteroid2, instantaneousPos.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+            ast = Instantiate(asteroid2, playerTr.position + yOffset + new Vector3(randomRangeFromPlayer, 0f, 0f), Quaternion.identity);
         }
         else if (randNum == 3)
         {
-            ast = Instantiate(asteroid3, instantaneousPos.position + yOffset + new Vector3(-yOffset.y * Mathf.Tan(degreesOfFall  * Mathf.PI / 180) - randomRangeFromPlayer, randomYOffset, 0f), Quaternion.identity);
+            ast = Instantiate(asteroid3, playerTr.position + yOffset + new Vector3(randomRangeFromPlayer, 0f, 0f), Quaternion.identity);
         }
-        
-        Vector2 dir = new Vector2(instantaneousPos.position.x + randomRangeFromPlayer, yOffset.y);
+
+        //ast.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, asteroidForce);
+
+        Vector2 dir = new Vector2(ast.transform.position.x + randomRangeFromPlayer - playerTr.position.x, yOffset.y + randomYOffset);
         dir = dir / dir.magnitude;
-        ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
+        //ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
+        ast.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x * asteroidForce, dir.y * asteroidForce);
+        
+        if (dir.x < 0f)
+        {
+            ast.GetComponent<SpriteRenderer>().flipX = true;
+        }
         
         
 
