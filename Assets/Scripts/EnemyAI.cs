@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+
+    public Animator enemyAnimator;
     public Rigidbody2D rb;
     public float enemyVisionDistance;
     public float enemySpeed;
@@ -28,6 +30,15 @@ public class EnemyAI : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 positionVec = transform.position - playerTr.position;
+
+        if (positionVec.x < 0f )
+        {
+            gameObject.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+        }
+        else
+        {
+            gameObject.transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
+        }
         float distance = positionVec.magnitude;
         Vector2 VelocityDirection = -(positionVec) / positionVec.magnitude;
         Vector2 vel = new Vector2(enemySpeed * VelocityDirection.x, 0f);
@@ -84,11 +95,21 @@ public class EnemyAI : MonoBehaviour
             bool grounded = playerTr.GetComponent<PlayerMovement>().isLanded;
 
 
-            if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && relX == facingDirection.x)
+            if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && (relX > 0f && facingDirection.x > 0f || relX < 0f && facingDirection.x < 0f))
             {
+                Debug.Log("Deez");
                 Dodge(facingDirection, level);
                 playerTr.GetComponent<PlayerMoves>().isCriting = false;
             }
+        }
+
+        if (isDodging)
+        {
+            enemyAnimator.SetBool("isDodging", true);
+
+        }else if(level == 2 && isDodging == false)
+        {
+            enemyAnimator.SetBool("isDodging", false);
         }
         // Timer
 

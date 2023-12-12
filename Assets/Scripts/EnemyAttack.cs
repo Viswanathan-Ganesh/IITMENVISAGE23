@@ -4,6 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 public class EnemyAttack : MonoBehaviour
 {
+    public Animator eAnimator;
     public Transform playerTr;
     public float timeBetweenShots;
     public float timer;
@@ -195,6 +196,8 @@ public class EnemyAttack : MonoBehaviour
     {
         GameObject Stone = Instantiate(stone, muzzle.position, Quaternion.identity);
         Stone.GetComponent<Rigidbody2D>().velocity = new Vector2(stoneShootingSpeed * facingDirection, Stone.GetComponent<Rigidbody2D>().velocity.y);
+        eAnimator.SetBool("isThrowningStone", true);
+        
     }
 
     void WoodenLog()
