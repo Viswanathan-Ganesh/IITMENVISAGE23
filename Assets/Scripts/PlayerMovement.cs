@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public float castDistance; 
     public LayerMask platformLayer;
 
+    public Animator playerAnimator;
     private void Start()
     {
         jumpsLeft = maxJumps;
@@ -42,10 +43,13 @@ public class PlayerMovement : MonoBehaviour
     {
         // Getting Position 
         Vector3 Pos = transform.position;
+        playerAnimator.SetBool("isRunning", false);
 
         // Moving Forward
         if (Input.GetKey(KeyCode.D))
         {
+            transform.GetComponent<SpriteRenderer>().flipX = false;
+            playerAnimator.SetBool("isRunning", true);
             // For getting direction
             facingRight = true;
             // Smoothly interpolating between two points by a small change t
@@ -56,11 +60,15 @@ public class PlayerMovement : MonoBehaviour
         // Moving Backward
         if (Input.GetKey(KeyCode.A))
         {
+            transform.GetComponent<SpriteRenderer>().flipX = true;
+            playerAnimator.SetBool("isRunning", true);
             // For getting direction
             facingRight = false;
             // Smoothly interpolating between two points by a small change t
             transform.position = Vector2.Lerp(transform.position, Pos -= speed * Time.deltaTime, Time.deltaTime);
         }
+
+        
 
         // Jump
         if (Input.GetButtonDown("Jump") && jumpsLeft > 0) // Checking if the player is grounded or not

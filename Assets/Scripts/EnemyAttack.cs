@@ -77,7 +77,6 @@ public class EnemyAttack : MonoBehaviour
                 gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x, dir.y) * ultimateSlashRunSpeed;
             }
             */
-
             RandomizedAttack();
         }
         
@@ -117,6 +116,7 @@ public class EnemyAttack : MonoBehaviour
         else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= secondWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= firstWaveHealth)
         {
             ThrowingStone();
+            eAnimator.SetBool("isThrowingStone", true);
             timer = timeBetweenShots;
         }
         else if(gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= secondWaveHealth)
