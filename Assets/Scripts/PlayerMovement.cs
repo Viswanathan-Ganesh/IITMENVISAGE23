@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     public float castDistance; 
     public LayerMask platformLayer;
 
+    private bool dPressed;
+    private bool aPressed;
+
     public Animator playerAnimator;
     private void Start()
     {
@@ -46,26 +49,34 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator.SetBool("isRunning", false);
 
         // Moving Forward
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftShift))
         {
             transform.GetComponent<SpriteRenderer>().flipX = false;
             playerAnimator.SetBool("isRunning", true);
             // For getting direction
             facingRight = true;
             // Smoothly interpolating between two points by a small change t
-            transform.position = Vector2.Lerp(transform.position, Pos += speed * Time.deltaTime, Time.deltaTime);
+            //transform.position = Vector2.Lerp(transform.position, Pos += speed * Time.deltaTime, Time.deltaTime);
+            rb.velocity = new Vector2(speed.x, rb.velocity.y);
+
         }
 
+        /*
+        if(Input.GetKeyUp(KeyCode.D)) {
+            rb.velocity =Vector2 0;
+        }
+        */
 
         // Moving Backward
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftShift))
         {
             transform.GetComponent<SpriteRenderer>().flipX = true;
             playerAnimator.SetBool("isRunning", true);
             // For getting direction
             facingRight = false;
             // Smoothly interpolating between two points by a small change t
-            transform.position = Vector2.Lerp(transform.position, Pos -= speed * Time.deltaTime, Time.deltaTime);
+            //transform.position = Vector2.Lerp(transform.position, Pos -= speed * Time.deltaTime, Time.deltaTime);
+            rb.velocity = new Vector2(-speed.x, rb.velocity.y);
         }
 
         
@@ -73,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (Input.GetButtonDown("Jump") && jumpsLeft > 0) // Checking if the player is grounded or not
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, 0);
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
             jumpsLeft -= 1;
         }
 
@@ -98,11 +109,11 @@ public class PlayerMovement : MonoBehaviour
             if (facingRight)
             {
                 //rb.AddForce(dashForce * Time.deltaTime, ForceMode2D.Impulse);
-                rb.velocity = new Vector2(dashSpeed, 0f);
+                rb.velocity = new Vector2(dashSpeed, rb.velocity.y);
             }
             else
             {
-                rb.velocity = new Vector2(-dashSpeed, 0f);
+                rb.velocity = new Vector2(-dashSpeed, rb.velocity.y);
                 //rb.AddForce(-dashForce * Time.deltaTime, ForceMode2D.Impulse);
             }
             dashPeriodTimer = dashPeriod;

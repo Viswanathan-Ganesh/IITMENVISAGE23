@@ -9,6 +9,7 @@ public class Arrow : MonoBehaviour
     public float damage;
     public float timeTillDestroy;
     private float timer = 0f;
+    
 
     void Update()
     {
@@ -30,6 +31,7 @@ public class Arrow : MonoBehaviour
             if(collision.tag == "Enemy")
             {
                 collision.gameObject.GetComponent<EnemyHealth>().SetHealth(Mathf.RoundToInt(damage * Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.x)));
+                collision.gameObject.GetComponent<Animator>().SetBool("isHurt", true);
                 Destroy(gameObject);
             }
             else if(collision.tag != "Player")

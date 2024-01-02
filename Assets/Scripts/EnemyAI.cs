@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 positionVec = transform.position - playerTr.position;
+        Debug.Log(positionVec);
 
         if (positionVec.x < 0f )
         {
@@ -42,51 +43,80 @@ public class EnemyAI : MonoBehaviour
         float distance = positionVec.magnitude;
         Vector2 VelocityDirection = -(positionVec) / positionVec.magnitude;
         Vector2 vel = new Vector2(enemySpeed * VelocityDirection.x, 0f);
-        if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= firstWaveHealth)
+
+        if(level == 2)
+        {
+            if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= firstWaveHealth)
+            {
+                if (distance <= enemyVisionDistance && distance > enemyAttackRange + 0.2f && isDodging == false)
+                {
+                    rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
+                }
+                else if (distance < enemyAttackRange - 0.2f && distance >= 0f && isDodging == false)
+                {
+                    rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
+                }
+                else if (isDodging == false)
+                {
+                    rb.velocity = new Vector2(0f, rb.velocity.y);
+                }
+            }
+            else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= secondWaveHealth)
+            {
+                if (distance <= enemyVisionDistance && distance > secondWaveRange + 0.2f && isDodging == false)
+                {
+                    rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
+                }
+                else if (distance < secondWaveRange - 0.2f && distance >= 0f && isDodging == false)
+                {
+                    rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
+                }
+                else if (isDodging == false)
+                {
+                    rb.velocity = new Vector2(0f, rb.velocity.y);
+                }
+            }
+            else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth)
+            {
+                if (distance <= enemyVisionDistance && distance > thirdWaveRange + 0.2f && isDodging == false)
+                {
+                    rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
+                }
+                else if (distance < thirdWaveRange - 0.2f && distance >= 0f && isDodging == false)
+                {
+                    rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
+                }
+                else if (isDodging == false)
+                {
+                    rb.velocity = new Vector2(0f, rb.velocity.y);
+                }
+            }
+
+            if (isDodging)
+            {
+                enemyAnimator.SetBool("isDodging", true);
+
+            }
+            else if (level == 2 && isDodging == false)
+            {
+                enemyAnimator.SetBool("isDodging", false);
+            }
+        }
+
+        if (level == 3)
         {
             if (distance <= enemyVisionDistance && distance > enemyAttackRange + 0.2f && isDodging == false)
             {
+                enemyAnimator.SetBool("isWalking", true);
                 rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
-            }
-            else if (distance < enemyAttackRange - 0.2f && distance >= 0f && isDodging == false)
-            {
-                rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
             }
             else if (isDodging == false)
             {
+                enemyAnimator.SetBool("isWalking", false);
                 rb.velocity = new Vector2(0f, rb.velocity.y);
             }
         }
-        else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= secondWaveHealth)
-        {
-            if (distance <= enemyVisionDistance && distance > secondWaveRange + 0.2f && isDodging == false)
-            {
-                rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
-            }
-            else if (distance < secondWaveRange - 0.2f && distance >= 0f && isDodging == false)
-            {
-                rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
-            }
-            else if (isDodging == false)
-            {
-                rb.velocity = new Vector2(0f, rb.velocity.y);
-            }
-        }
-        else if(gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth)
-        {
-            if (distance <= enemyVisionDistance && distance > thirdWaveRange + 0.2f && isDodging == false)
-            {
-                rb.velocity = new Vector2(enemySpeed * VelocityDirection.x, rb.velocity.y);
-            }
-            else if (distance < thirdWaveRange - 0.2f && distance >= 0f && isDodging == false)
-            {
-                rb.velocity = new Vector2(-enemySpeed * VelocityDirection.x, rb.velocity.y);
-            }
-            else if (isDodging == false)
-            {
-                rb.velocity = new Vector2(0f, rb.velocity.y);
-            }
-        }
+
 
         if (distance <= playerTr.GetComponent<PlayerMoves>().normalRange)
         {
@@ -94,7 +124,7 @@ public class EnemyAI : MonoBehaviour
             float relX = positionVec.x / Mathf.Abs(positionVec.x);
             bool grounded = playerTr.GetComponent<PlayerMovement>().isLanded;
 
-
+            
             if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && (relX > 0f && facingDirection.x > 0f || relX < 0f && facingDirection.x < 0f))
             {
                 Debug.Log("Deez");
@@ -102,7 +132,7 @@ public class EnemyAI : MonoBehaviour
                 playerTr.GetComponent<PlayerMoves>().isCriting = false;
             }
         }
-
+        /*
         if (isDodging)
         {
             enemyAnimator.SetBool("isDodging", true);
@@ -111,6 +141,7 @@ public class EnemyAI : MonoBehaviour
         {
             enemyAnimator.SetBool("isDodging", false);
         }
+        */
         // Timer
 
         if (isDodging == true)

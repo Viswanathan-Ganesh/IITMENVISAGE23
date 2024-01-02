@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bdf2533eda71249b6f463e5b0c6e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidDamage: 5
+  asteroidDamage: 7
   destroyDelay: 1
 --- !u!58 &1113418994836510368
 CircleCollider2D:

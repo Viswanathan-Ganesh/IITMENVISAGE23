@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -42,31 +43,58 @@ public class EnemyAttack : MonoBehaviour
     public float ultimateSlashRange;
     public float ultimateSlashRunSpeed;
 
+    public float enemyAttackAnimationTime;
+    private float enemyAttackAnimationTimer;
+    public float enemyHurtAnimationTIme;
+    private float enemyHurtAnimationTimer;
+
+    private float dist;
+
     GameObject ai;
 
     // Update is called once per frame
     void Update()
     {
-        facingDirection = (playerTr.position.x - transform.position.x)/Mathf.Abs((playerTr.position.x - transform.position.x));
+        
+        dist = playerTr.position.x - transform.position.x;
+        facingDirection = (dist)/Mathf.Abs(dist);
 
         
         if (facingDirection < 0)
         {
             slashPoint.position = transform.position - slashPointOffset;
-            muzzle.position = transform.position - slashPointOffset;
+            if(level == 1)
+            {
+                muzzle.position = transform.position - slashPointOffset;
+            }
         }
         else if(facingDirection > 0) 
         {
             slashPoint.position = transform.position + slashPointOffset;
-            muzzle.position = transform.position + slashPointOffset;
+            if(level == 1)
+            {
+                muzzle.position = transform.position + slashPointOffset;
+            }
         }
 
-        
+       
         // timer
         timer -= Time.deltaTime;
         asteroidTimer -= Time.deltaTime;
+        enemyAttackAnimationTimer -= Time.deltaTime;
+        enemyHurtAnimationTimer -= Time.deltaTime;
 
-        if (timer < 0)
+        if(enemyAttackAnimationTimer < 0)
+        {
+            eAnimator.SetBool("isSlashing", false);
+        }
+        /*
+        if(enemyHurtAnimationTimer < 0) 
+        {
+            eAnimator.SetBool("isHurt", false);
+        }
+        */
+        if (timer < 0 && Mathf.Abs(dist) <= slashRange + slashPointOffset.x)
         {
             /*
             Vector3 dir = playerTr.position - transform.position;
@@ -108,26 +136,36 @@ public class EnemyAttack : MonoBehaviour
             }
         }
         */
-        if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= firstWaveHealth)
+        if (level == 1)
         {
+            if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= firstWaveHealth)
+            {
+                WoodenLog();
+                timer = timeBetweenShots;
+            }
+            else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= secondWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= firstWaveHealth)
+            {
+                ThrowingStone();
+                eAnimator.SetBool("isThrowingStone", true);
+                timer = timeBetweenShots;
+            }
+            else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= secondWaveHealth)
+            {
+                ai = Instantiate(asteroidIndicator, playerTr.position, Quaternion.identity);
+
+                for (int i = 0; i < noOfAsteroids; i++)
+                {
+                    AsteroidRain();
+                }
+                timer = timeBetweenShots;
+            }
+        }
+        else if(level == 2)
+        {
+            eAnimator.SetBool("isSlashing", true);
             WoodenLog();
             timer = timeBetweenShots;
-        }
-        else if (gameObject.GetComponent<EnemyHealth>().GetHealth() >= secondWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= firstWaveHealth)
-        {
-            ThrowingStone();
-            eAnimator.SetBool("isThrowingStone", true);
-            timer = timeBetweenShots;
-        }
-        else if(gameObject.GetComponent<EnemyHealth>().GetHealth() >= thirdWaveHealth && gameObject.GetComponent<EnemyHealth>().GetHealth() <= secondWaveHealth)
-        {
-            ai = Instantiate(asteroidIndicator, playerTr.position, Quaternion.identity);
-
-            for (int i = 0; i < noOfAsteroids; i++)
-            {
-                AsteroidRain();
-            }
-            timer = timeBetweenShots;
+            enemyAttackAnimationTimer = enemyAttackAnimationTime;
         }
 
     }
@@ -163,13 +201,15 @@ public class EnemyAttack : MonoBehaviour
         Vector2 dir = new Vector2(ast.transform.position.x + randomRangeFromPlayer - playerTr.position.x, yOffset.y + randomYOffset);
         dir = dir / dir.magnitude;
         //ast.GetComponent<Rigidbody2D>().AddForce(dir * asteroidForce * Time.deltaTime, ForceMode2D.Impulse);
-        ast.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x * asteroidForce, dir.y * asteroidForce);
+        //ast.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x * asteroidForce, dir.y * asteroidForce);
+        ast.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, dir.y * asteroidForce);
         
+        /*
         if (dir.x < 0f)
         {
             ast.GetComponent<SpriteRenderer>().flipX = true;
         }
-        
+        */
         
 
         /*
@@ -217,15 +257,16 @@ public class EnemyAttack : MonoBehaviour
         Gizmos.DrawWireSphere(slashPoint.position, slashRange);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision == null) return;
         else
         {
-            if (collision.collider.tag == "Player")
+            if (collision.GetComponent<Collider>().tag == "Player")
             {
                 collision.gameObject.GetComponent<PlayerHealth>().Damage(ultimateSlashDamage);
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                //enemyHurtAnimationTimer = enemyHurtAnimationTIme;
             }
         }
     }
