@@ -36,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
     private bool dPressed;
     private bool aPressed;
 
+    public float playerJumpAnimationTime;
+    private float playerJumpAnimationTimer;
+
     public Animator playerAnimator;
     private void Start()
     {
@@ -61,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        //Debug.Log(rb.velocity);
+
+        
+        
         /*
         if(Input.GetKeyUp(KeyCode.D)) {
             rb.velocity =Vector2 0;
@@ -79,15 +86,21 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(-speed.x, rb.velocity.y);
         }
 
-        
+        if(playerJumpAnimationTimer < 0f)
+        {
+            playerAnimator.SetBool("isJumping", false);
+            playerAnimator.SetBool("isfalling", true);
+        }
 
         // Jump
         if (Input.GetButtonDown("Jump") && jumpsLeft > 0) // Checking if the player is grounded or not
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            playerAnimator.SetBool("isJumping", true);
+            playerAnimator.SetBool("isfalling", false);
             jumpsLeft -= 1;
         }
-
+       
         if (isGrounded())
         {
             jumpsLeft = maxJumps;
@@ -151,12 +164,14 @@ public class PlayerMovement : MonoBehaviour
         if (Physics2D.BoxCast(transform.position, playerSize, 0, -transform.up, castDistance, platformLayer))
         {
             isLanded = true;
+            playerAnimator.SetBool("isgrounded", true);
             return true;
         }
 
         else
         {
             isLanded = false;
+            playerAnimator.SetBool("isgrounded", false);
             return false;
         }
     }

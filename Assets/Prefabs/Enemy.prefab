@@ -315,7 +315,7 @@ MonoBehaviour:
   enemyAttackRange: 3
   isDodging: 0
   dodgeCooldown: 0.15
-  level: 2
+  level: 3
   firstWaveHealth: 0
   secondWaveHealth: 0
   thirdWaveHealth: 0

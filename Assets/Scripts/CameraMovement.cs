@@ -10,14 +10,19 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         transform.position = transform.position + offset;
+
     }
     void Update()
     {   
         timer -= Time.deltaTime;
         if (timer < 0)
         {
-            transform.position = Vector3.Lerp(transform.position, playerTr.position + offset, Time.deltaTime) ;
+            transform.position = Vector3.Lerp(transform.position, playerTr.position + offset, Time.deltaTime);
             timer = timeDiff;
+            if(playerTr.GetComponent<PlayerHealth>().health <= 0f) 
+            {
+                Destroy(gameObject);
+            }
         }
 
     }

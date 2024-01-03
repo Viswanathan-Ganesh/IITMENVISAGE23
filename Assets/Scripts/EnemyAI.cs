@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 positionVec = transform.position - playerTr.position;
-        Debug.Log(positionVec);
+        //Debug.Log(positionVec);
 
         if (positionVec.x < 0f )
         {
