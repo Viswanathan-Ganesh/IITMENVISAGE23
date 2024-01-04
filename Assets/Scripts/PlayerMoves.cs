@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerMoves : MonoBehaviour
 {
+    public Animator animator;
     
     public float critRange;
     public float normalRange;
@@ -107,6 +108,7 @@ public class PlayerMoves : MonoBehaviour
             Slash();
             canSlash = false;
             slashTimer = slashCoolDown;
+            
         }
 
         // attack cooldown
@@ -155,6 +157,7 @@ public class PlayerMoves : MonoBehaviour
 
     void Slash()
     {
+        animator.SetTrigger("groundAttack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(slashPointPos, slashRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool doubleJumpCapable = true;
     public bool dashCapable;
-    public bool facingRight;
+    
 
     public float doubleJumpRefillTime;
     private float DJTimer;
@@ -41,9 +41,13 @@ public class PlayerMovement : MonoBehaviour
     private float playerJumpAnimationTimer;
 
     public Animator playerAnimator;
+
+    public bool isfalling;
+    public bool facingRight;
     private void Start()
     {
         jumpsLeft = maxJumps;
+        facingRight = true;
     }
 
     void Update()
@@ -52,38 +56,22 @@ public class PlayerMovement : MonoBehaviour
         Vector3 Pos = transform.position;
         playerAnimator.SetBool("isRunning", false);
 
+        float movex = Input.GetAxisRaw("Horizontal");
+       
+
         // Moving Forward
         if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftShift))
         {
-            transform.GetComponent<SpriteRenderer>().flipX = false;
-            playerAnimator.SetBool("isRunning", true);
-            // For getting direction
-            facingRight = true;
-            // Smoothly interpolating between two points by a small change t
-            //transform.position = Vector2.Lerp(transform.position, Pos += speed * Time.deltaTime, Time.deltaTime);
-            rb.velocity = new Vector2(speed.x, rb.velocity.y);
+        
+        rb.velocity = new Vector2(speed.x, rb.velocity.y);
 
         }
 
-        //Debug.Log(rb.velocity);
-
         
-        
-        /*
-        if(Input.GetKeyUp(KeyCode.D)) {
-            rb.velocity =Vector2 0;
-        }
-        */
 
-        // Moving Backward
         if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftShift))
         {
-            transform.GetComponent<SpriteRenderer>().flipX = true;
-            playerAnimator.SetBool("isRunning", true);
-            // For getting direction
-            facingRight = false;
-            // Smoothly interpolating between two points by a small change t
-            //transform.position = Vector2.Lerp(transform.position, Pos -= speed * Time.deltaTime, Time.deltaTime);
+     
             rb.velocity = new Vector2(-speed.x, rb.velocity.y);
         }
 
@@ -100,25 +88,17 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded())
         {
             jumpsLeft = maxJumps;
-        } //refill
 
-        // Double Jump
-        /*
-        if (Input.GetKey(KeyCode.LeftControl) && !isGrounded() && doubleJumpCapable) // Checks if DJ capable and if the player is already mid-air
-        {
-            rb.AddForce(doubleJumpForce * Time.deltaTime, ForceMode2D.Impulse); // applies impules
-
-        }
-        */
+        } 
 
 
-        // Dash
         if (Input.GetKey(KeyCode.LeftShift) && dashCapable) // checking dashcapability
         {
             if (facingRight)
             {
                 //rb.AddForce(dashForce * Time.deltaTime, ForceMode2D.Impulse);
                 rb.velocity = new Vector2(dashSpeed, rb.velocity.y);
+                playerAnimator.SetTrigger("dashing");
             }
             else
             {
@@ -141,7 +121,8 @@ public class PlayerMovement : MonoBehaviour
         {
             dashPeriodTimer -= Time.deltaTime;
         }
-        // Dash Timer
+
+
         if (dashCapable == false)
         {
             
@@ -152,9 +133,20 @@ public class PlayerMovement : MonoBehaviour
             dashCapable = true;
 
         }
+
+        isfalling = isjumping();
+
+        playerAnimator.SetFloat("Speed", Mathf.Abs(movex));
+
+        if ((movex < 0 && facingRight) || (movex > 0 && !facingRight))
+        {
+            facingRight = !facingRight;
+            this.transform.Rotate(0, 180, 0);
+        }
+
+
     }
 
-    // Checks if the player is grounded
     private bool isGrounded()
     {
         if (Physics2D.BoxCast(transform.position, playerSize, 0, -transform.up, castDistance, platformLayer))
@@ -168,6 +160,22 @@ public class PlayerMovement : MonoBehaviour
         {
             isLanded = false;
             playerAnimator.SetBool("isgrounded", false);
+            return false;
+        }
+    }
+
+    private bool isjumping() 
+    {
+        if (rb.velocity.y < 0f)
+        {
+            
+            playerAnimator.SetBool("isfalling", true);
+            return true;
+        }
+
+        else 
+        {
+            playerAnimator.SetBool("isfalling", false);
             return false;
         }
     }
