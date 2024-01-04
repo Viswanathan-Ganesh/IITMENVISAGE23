@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
+    
 
     public Vector2 jumpForce;
     public Vector2 doubleJumpForce;
@@ -86,18 +87,13 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(-speed.x, rb.velocity.y);
         }
 
-        if(playerJumpAnimationTimer < 0f)
-        {
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isfalling", true);
-        }
 
         // Jump
         if (Input.GetButtonDown("Jump") && jumpsLeft > 0) // Checking if the player is grounded or not
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-            playerAnimator.SetBool("isJumping", true);
-            playerAnimator.SetBool("isfalling", false);
+            playerAnimator.SetTrigger("isjumping");
+            
             jumpsLeft -= 1;
         }
        

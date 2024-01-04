@@ -44,9 +44,9 @@ public class EnemyAttack : MonoBehaviour
     public float ultimateSlashRunSpeed;
 
     public float enemyAttackAnimationTime;
-    private float enemyAttackAnimationTimer;
-    public float enemyHurtAnimationTIme;
-    private float enemyHurtAnimationTimer;
+    public float enemyAttackAnimationTimer;
+    public float enemyHurtAnimationTime;
+    public float enemyHurtAnimationTimer;
 
     private float dist;
 
@@ -266,7 +266,8 @@ public class EnemyAttack : MonoBehaviour
             {
                 collision.gameObject.GetComponent<PlayerHealth>().Damage(ultimateSlashDamage);
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                //enemyHurtAnimationTimer = enemyHurtAnimationTIme;
+                eAnimator.SetBool("isHurt", true);
+                enemyHurtAnimationTimer = enemyHurtAnimationTime;
             }
         }
     }

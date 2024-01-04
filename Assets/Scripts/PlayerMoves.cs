@@ -170,10 +170,12 @@ public class PlayerMoves : MonoBehaviour
         if (facingDir.x > 0f)
         {
             iarrowRb.velocity = new Vector2(time * arrowSpeed, iarrowRb.velocity.y);
+            
         }
         else if(facingDir.x < 0f) 
         {
             iarrowRb.velocity = new Vector2(-time * arrowSpeed, iarrowRb.velocity.y);
+            iarrow.transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
         }
         
     }

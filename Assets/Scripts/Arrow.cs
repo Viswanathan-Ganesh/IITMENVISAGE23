@@ -32,6 +32,7 @@ public class Arrow : MonoBehaviour
             {
                 collision.gameObject.GetComponent<EnemyHealth>().SetHealth(Mathf.RoundToInt(damage * Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.x)));
                 collision.gameObject.GetComponent<Animator>().SetBool("isHurt", true);
+                collision.gameObject.GetComponent<EnemyAttack>().enemyHurtAnimationTimer = collision.gameObject.GetComponent<EnemyAttack>().enemyHurtAnimationTime;
                 Destroy(gameObject);
             }
             else if(collision.tag != "Player")

@@ -4,6 +4,9 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int health;
+    public int maxHealth;
+    public GameObject healthBar;
+    public float barSize;
 
 
     void Update()
@@ -12,6 +15,8 @@ public class EnemyHealth : MonoBehaviour
         {
             Destroy(gameObject); // Enemy destroying condition
         }
+        
+        healthBar.transform.localScale = new Vector3(health * barSize / maxHealth, healthBar.transform.localScale.y, 0f);
     }
 
     public float GetHealth()
