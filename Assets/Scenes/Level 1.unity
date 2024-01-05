@@ -29882,6 +29882,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4432141352329116284, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+      propertyPath: dashPeriod
+      value: 0.14
+      objectReference: {fileID: 0}
     - target: {fileID: 4767591849943486737, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
       propertyPath: m_SortingLayer
       value: 2
