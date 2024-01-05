@@ -125,7 +125,7 @@ public class EnemyAI : MonoBehaviour
             bool grounded = playerTr.GetComponent<PlayerMovement>().isLanded;
 
             
-            if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.S) || playerTr.GetComponent<PlayerMoves>().isCriting) && (relX > 0f && facingDirection.x > 0f || relX < 0f && facingDirection.x < 0f))
+            if ((Input.GetMouseButtonDown(0)) && (relX > 0f && facingDirection.x > 0f || relX < 0f && facingDirection.x < 0f))
             {
                 Debug.Log("Deez");
                 Dodge(facingDirection, level);

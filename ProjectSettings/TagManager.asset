@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Stone
   - Arrow
+  - Coin
   layers:
   - Default
   - TransparentFX

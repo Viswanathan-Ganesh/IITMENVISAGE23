@@ -103,7 +103,7 @@ public class PlayerMoves : MonoBehaviour
         */
 
         // Slash Attack
-        if (Input.GetKeyDown(KeyCode.S) && canSlash)
+        if (Input.GetMouseButtonDown(0) && canSlash)
         {
             Slash();
             canSlash = false;
@@ -161,8 +161,10 @@ public class PlayerMoves : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(slashPointPos, slashRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)
+        {
             enemy.GetComponent<EnemyHealth>().SetHealth(slashDamage);
-
+            gameObject.GetComponent<ScoreSystem>().score += slashDamage * gameObject.GetComponent<ScoreSystem>().scoreMultiplier;
+        }
     }
 
     void BowShot(float time)

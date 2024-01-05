@@ -281,7 +281,7 @@ public class EnemyAttack : MonoBehaviour
         if (collision == null) return;
         else
         {
-            if (collision.GetComponent<Collider>().tag == "Player")
+            if (collision.tag == "Player")
             {
                 collision.gameObject.GetComponent<PlayerHealth>().Damage(ultimateSlashDamage);
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
