@@ -277,8 +277,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1964987639
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -407488483, guid: fe2965ff86d8bac49a1c1bc62d88d9d3, type: 3}
   m_Color: {r: 1, g: 0.80269533, b: 0.5981132, a: 1}
@@ -379,6 +379,8 @@ MonoBehaviour:
   maxHealth: 100
   healthBar: {fileID: 5342472684543835355}
   barSize: 0.6
+  damagePopup: {fileID: 5728891770909655747, guid: 22a11e45108cd264895a6347c7d94fb6, type: 3}
+  offset: {x: 0.11, y: 0.94, z: 0}
 --- !u!114 &6887353297439013657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,7 +458,9 @@ MonoBehaviour:
   ultimateSlashRange: 0
   ultimateSlashRunSpeed: 0
   enemyAttackAnimationTime: 1
-  enemyHurtAnimationTIme: 0.75
+  enemyAttackAnimationTimer: 0
+  enemyHurtAnimationTime: 0
+  enemyHurtAnimationTimer: 0
 --- !u!95 &3294123607916360726
 Animator:
   serializedVersion: 5
