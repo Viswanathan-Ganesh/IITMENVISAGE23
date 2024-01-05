@@ -26992,6 +26992,10 @@ PrefabInstance:
       propertyPath: m_PointLightOuterRadius
       value: 12.82
       objectReference: {fileID: 0}
+    - target: {fileID: 9123292498596816824, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2083132835}
     m_RemovedComponents:
     - {fileID: 6627330500558813757, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
     m_RemovedGameObjects: []
@@ -27998,7 +28002,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619274042}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -28048,6 +28052,11 @@ PolygonCollider2D:
       - {x: 1.0282217, y: -1.7856531}
       - {x: 1.0282218, y: -1.7856531}
   m_UseDelaunayMesh: 0
+--- !u!95 &2083132835 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5351264689089388439, guid: b06a6a02069a34340a6d5df1f588a41a, type: 3}
+  m_PrefabInstance: {fileID: 1869367880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2092174998
 PrefabInstance:
   m_ObjectHideFlags: 0

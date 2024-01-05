@@ -205,7 +205,7 @@ public class EnemyAI : MonoBehaviour
             // 70 % possiblity
             int rand = Random.Range(1, 10);
 
-            if (rand == 1 || rand == 2 || rand == 3 || rand == 4 || rand == 5 || rand == 6 || rand == 7 || rand == 8 || rand == 9)
+            if (rand == 1 || rand == 2)
             {
                 isDodging = true;
                 return true;
