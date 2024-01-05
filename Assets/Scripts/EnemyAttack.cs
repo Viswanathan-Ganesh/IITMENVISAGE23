@@ -94,18 +94,37 @@ public class EnemyAttack : MonoBehaviour
             eAnimator.SetBool("isHurt", false);
         }
         */
-        if (timer < 0 && Mathf.Abs(dist) <= slashRange + slashPointOffset.x)
+        if (level == 2)
         {
-            /*
-            Vector3 dir = playerTr.position - transform.position;
-            dir = dir / dir.magnitude;
-            float dis = (playerTr.position - transform.position).magnitude;
-            if (dis <= ultimateSlashRange + ultimateSlashOffset && dis >= ultimateSlashRange - ultimateSlashRange)
+            if (timer < 0 && Mathf.Abs(dist) <= slashRange + slashPointOffset.x)
             {
-                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x, dir.y) * ultimateSlashRunSpeed;
+                /*
+                Vector3 dir = playerTr.position - transform.position;
+                dir = dir / dir.magnitude;
+                float dis = (playerTr.position - transform.position).magnitude;
+                if (dis <= ultimateSlashRange + ultimateSlashOffset && dis >= ultimateSlashRange - ultimateSlashRange)
+                {
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x, dir.y) * ultimateSlashRunSpeed;
+                }
+                */
+                RandomizedAttack();
             }
-            */
-            RandomizedAttack();
+        }
+        else if (level == 1)
+        {
+            if (timer < 0)
+            {
+                /*
+                Vector3 dir = playerTr.position - transform.position;
+                dir = dir / dir.magnitude;
+                float dis = (playerTr.position - transform.position).magnitude;
+                if (dis <= ultimateSlashRange + ultimateSlashOffset && dis >= ultimateSlashRange - ultimateSlashRange)
+                {
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x, dir.y) * ultimateSlashRunSpeed;
+                }
+                */
+                RandomizedAttack();
+            }
         }
         
     }
